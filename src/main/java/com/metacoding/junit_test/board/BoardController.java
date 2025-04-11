@@ -32,25 +32,24 @@ public class BoardController {
     public String save(String title, String content) {
         System.out.println("title: " + title + " content: " + content);
         boardService.게시글쓰기(title, content);
-        return "redirect:/"; // 주소가 만들어져있으면 리다이렉션
+        return "redirect:/";
     }
 
-    // C -> Model -> V
     @GetMapping("/")
     public String list(HttpServletRequest request) {
         List<Board> boardList = boardService.게시글목록();
-        request.setAttribute("models", boardList); // request 담기
+        request.setAttribute("models", boardList);
         return "list"; // forward
     }
 
-    @GetMapping("/board/{id}") // 패턴 매칭 /board/1,2,3
+    @GetMapping("/board/{id}")
     public String detail(@PathVariable("id") int id, HttpServletRequest request) {
         Board board = boardService.게시글상세보기(id);
         request.setAttribute("model", board);
         return "detail";
     }
 
-    @GetMapping("/board/save-form") // 주소 (하이픈 사용)
+    @GetMapping("/board/save-form")
     public String saveForm() {
         return "save-form";
     }

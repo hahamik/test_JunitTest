@@ -6,13 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-// 책임 : DB와 소통하는 친구
-@Repository // IoC 컬렉션에 뜬다.
+
+@Repository
 public class BoardRepository {
 
     private EntityManager em;
 
-    // DI -> IoC 순회해서 타입으로 찾아서 전달해준다.
     public BoardRepository(EntityManager em) {
         System.out.println("BoardRepository new 됨");
         this.em = em;
@@ -23,7 +22,7 @@ public class BoardRepository {
         Query query = em.createNativeQuery("insert into board_tb(title, content, created_at) values(?,?,now())");
         query.setParameter(1, title);
         query.setParameter(2, content);
-        query.executeUpdate(); // insert, update, delete
+        query.executeUpdate();
     }
 
     public List<Board> findAll() {
